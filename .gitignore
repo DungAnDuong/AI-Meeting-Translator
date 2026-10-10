@@ -1,0 +1,14 @@
+node_modules/
+dist/
+data/
+server/data/
+*.db
+*.db-wal
+*.db-shm
+.env
+server/.env
+e2e/screenshots/
+e2e/fixtures/*.wav
+logs/
+tools/whisper.cpp/
+tools/_download/

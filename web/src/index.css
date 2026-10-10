@@ -1,0 +1,180 @@
+@import 'tailwindcss';
+
+/* Dark mode theo hệ điều hành, hoặc ép bằng data-theme trên <html> */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme {
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+}
+
+:root {
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --surface-2: #eef1f4;
+  --border: #d9dee5;
+  --fg: #111827;
+  --muted: #5b6472;
+  --accent: #0f766e;
+  --accent-fg: #ffffff;
+  --accent-soft: #ccfbf1;
+  --danger: #b42318;
+  --danger-soft: #fee4e2;
+  --warn: #a15c07;
+  --warn-soft: #fef0c7;
+  --ok: #067647;
+  --ok-soft: #dcfae6;
+  --transcript-size: 17px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #0b0f14;
+    --surface: #131a22;
+    --surface-2: #1b2430;
+    --border: #2a3542;
+    --fg: #e6edf3;
+    --muted: #93a1b0;
+    --accent: #2dd4bf;
+    --accent-fg: #042f2e;
+    --accent-soft: #123b38;
+    --danger: #f97066;
+    --danger-soft: #3b1714;
+    --warn: #fdb022;
+    --warn-soft: #3a2a0b;
+    --ok: #47cd89;
+    --ok-soft: #0f2e1f;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #0b0f14;
+  --surface: #131a22;
+  --surface-2: #1b2430;
+  --border: #2a3542;
+  --fg: #e6edf3;
+  --muted: #93a1b0;
+  --accent: #2dd4bf;
+  --accent-fg: #042f2e;
+  --accent-soft: #123b38;
+  --danger: #f97066;
+  --danger-soft: #3b1714;
+  --warn: #fdb022;
+  --warn-soft: #3a2a0b;
+  --ok: #47cd89;
+  --ok-soft: #0f2e1f;
+  color-scheme: dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: anywhere;
+}
+
+/* Màu người nói: 8 màu dễ phân biệt, đủ tương phản ở cả hai chế độ */
+.spk-0 { --spk: #2563eb; }
+.spk-1 { --spk: #c2410c; }
+.spk-2 { --spk: #7c3aed; }
+.spk-3 { --spk: #0e7490; }
+.spk-4 { --spk: #be185d; }
+.spk-5 { --spk: #4d7c0f; }
+.spk-6 { --spk: #b45309; }
+.spk-7 { --spk: #4338ca; }
+.spk-unknown { --spk: #6b7280; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .spk-0 { --spk: #60a5fa; }
+  :root:not([data-theme='light']) .spk-1 { --spk: #fb923c; }
+  :root:not([data-theme='light']) .spk-2 { --spk: #a78bfa; }
+  :root:not([data-theme='light']) .spk-3 { --spk: #22d3ee; }
+  :root:not([data-theme='light']) .spk-4 { --spk: #f472b6; }
+  :root:not([data-theme='light']) .spk-5 { --spk: #a3e635; }
+  :root:not([data-theme='light']) .spk-6 { --spk: #fbbf24; }
+  :root:not([data-theme='light']) .spk-7 { --spk: #818cf8; }
+  :root:not([data-theme='light']) .spk-unknown { --spk: #9ca3af; }
+}
+
+/* Đặt trong layer components để utility của Tailwind (hidden, sm:hidden, h-9…) được ưu tiên hơn */
+@layer components {
+.transcript-text {
+  font-size: var(--transcript-size);
+  line-height: 1.55;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  padding: 0 0.9rem;
+  border-radius: 0.6rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+  white-space: nowrap;
+}
+.btn:hover:not(:disabled) { background: var(--surface-2); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn:focus-visible, .input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.btn-primary:hover:not(:disabled) { background: var(--accent); filter: brightness(1.08); }
+.btn-danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+.btn-danger:hover:not(:disabled) { background: var(--danger); filter: brightness(1.08); }
+.btn-ghost { background: transparent; border-color: transparent; }
+.btn-lg { min-height: 3.25rem; font-size: 1rem; padding: 0 1.2rem; border-radius: 0.8rem; }
+.btn-icon { padding: 0; width: 2.5rem; }
+
+.input {
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--fg);
+  font-size: 0.95rem;
+}
+textarea.input { min-height: 5rem; line-height: 1.45; }
+.label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 0.3rem; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 0.9rem; }
+}
+
+@keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+.pulse { animation: pulse-dot 1.2s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse { animation: none; }
+  * { scroll-behavior: auto !important; }
+}
+
+mark { background: #fde68a; color: inherit; border-radius: 2px; padding: 0 1px; }

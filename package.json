@@ -1,0 +1,28 @@
+{
+  "name": "ai-meeting-translator",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AI Meeting Translator – phiên dịch cuộc họp real-time sang tiếng Việt",
+  "workspaces": [
+    "shared",
+    "server",
+    "web"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n server,web -c blue,green \"npm run dev -w @amt/server\" \"npm run dev -w @amt/web\"",
+    "build": "npm run build -w @amt/web",
+    "start": "npm run start -w @amt/server",
+    "test": "npm test -w @amt/server && npm test -w @amt/web",
+    "typecheck": "npm run typecheck -w @amt/server && npm run typecheck -w @amt/web",
+    "test:e2e": "npm run build && tsx e2e/browser-e2e.ts",
+    "sample-audio": "powershell -NoProfile -ExecutionPolicy Bypass -File e2e/make-sample-audio.ps1"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6",
+    "playwright-core": "^1.64.0",
+    "typescript": "^7.0.2"
+  },
+  "engines": {
+    "node": ">=22.13"
+  }
+}
