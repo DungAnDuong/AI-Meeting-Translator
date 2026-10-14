@@ -124,7 +124,7 @@ export async function buildApp(config: AppConfig, opts: BuildOptions = {}): Prom
   await registerWebSocket(app, ctx);
 
   if (fs.existsSync(config.webDistDir)) {
-    await app.register(fastifyStatic, { root: config.webDistDir, wildcard: false });
+    await app.register(fastifyStatic, { root: config.webDistDir });
     app.setNotFoundHandler((req, reply) => {
       if (req.method === 'GET' && !req.url.startsWith('/api') && !req.url.startsWith('/ws')) return reply.sendFile('index.html');
       reply.code(404).send({ error: 'Không tìm thấy' });
